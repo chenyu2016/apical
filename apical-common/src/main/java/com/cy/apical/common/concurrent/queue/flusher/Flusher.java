@@ -14,12 +14,16 @@ public interface Flusher<T> {
      */
     void add(T e);
 
+    void add(T... es);
+
     /**
      * 尝试添加元素
      * @param e
      * @return
      */
     boolean tryAdd(T e);
+
+    boolean tryAdd(T... es);
 
     boolean isShutdown();
 
