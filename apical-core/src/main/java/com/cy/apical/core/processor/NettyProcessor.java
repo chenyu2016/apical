@@ -1,8 +1,6 @@
 package com.cy.apical.core.processor;
 
-import com.cy.apical.core.context.HttpRequestWrapper;
-import com.cy.apical.core.context.RequestWapper;
-import com.cy.apical.core.context.SocketRequestWrapper;
+import com.cy.apical.core.context.RequestWrapper;
 
 /**
  * @Author ChenYu
@@ -31,7 +29,7 @@ public interface NettyProcessor {
      * @param requestWrapper
      * @throws Exception
      */
-    void process(RequestWapper requestWrapper) throws Exception;
+    void process(RequestWrapper requestWrapper) throws Exception;
 
     /**
      * 执行器启动方法

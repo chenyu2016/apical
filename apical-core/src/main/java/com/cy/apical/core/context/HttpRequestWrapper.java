@@ -1,9 +1,6 @@
 package com.cy.apical.core.context;
 
-import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * @Author ChenYu
@@ -11,10 +8,16 @@ import lombok.Setter;
  * @Describe http请求包装类
  * @Version 1.0
  */
-@Getter
-@Setter
-public class HttpRequestWrapper implements RequestWapper{
+public class HttpRequestWrapper extends RequestWrapper {
 
     private FullHttpRequest fullHttpRequest;
-    private ChannelHandlerContext ctx;
+
+    public FullHttpRequest getFullHttpRequest() {
+        return fullHttpRequest;
+    }
+
+    @Override
+    public void errorCallBackWrite(Object o) {
+
+    }
 }

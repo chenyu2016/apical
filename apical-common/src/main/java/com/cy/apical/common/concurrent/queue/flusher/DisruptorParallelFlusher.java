@@ -213,8 +213,8 @@ public class DisruptorParallelFlusher<T> implements Flusher<T>{
         }
     }
 
-    private interface EventListener<E> {
-        void onEvnet(E e) throws Exception;
+    public interface EventListener<E> {
+        void onEvent(E e) throws Exception;
 
         void onException(Throwable throwable, long sequence, E event);
     }
@@ -223,7 +223,7 @@ public class DisruptorParallelFlusher<T> implements Flusher<T>{
 
         @Override
         public void onEvent(HolderEvent event) throws Exception {
-            eventListener.onEvnet(event.e);
+            eventListener.onEvent(event.e);
             event.setE(null);
         }
     }

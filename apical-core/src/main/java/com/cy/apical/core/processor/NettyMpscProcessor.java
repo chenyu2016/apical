@@ -1,6 +1,6 @@
 package com.cy.apical.core.processor;
 
-import com.cy.apical.core.context.RequestWapper;
+import com.cy.apical.core.context.RequestWrapper;
 
 /**
  * @Author ChenYu
@@ -17,7 +17,7 @@ public class NettyMpscProcessor implements NettyProcessor{
     }
 
     @Override
-    public void process(RequestWapper requestWrapper) throws Exception {
+    public void process(RequestWrapper requestWrapper) throws Exception {
 
     }
 

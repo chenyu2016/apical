@@ -1,7 +1,7 @@
 package com.cy.apical.core.processor;
 
 import com.cy.apical.core.context.HttpRequestWrapper;
-import com.cy.apical.core.context.RequestWapper;
+import com.cy.apical.core.context.RequestWrapper;
 import com.cy.apical.core.context.SocketRequestWrapper;
 import io.netty.channel.ChannelHandlerContext;
 import io.netty.handler.codec.http.FullHttpRequest;
@@ -37,7 +37,7 @@ public class NettyCoreProcessor implements NettyProcessor{
     }
 
     @Override
-    public void process(RequestWapper requestWrapper) throws Exception {
+    public void process(RequestWrapper requestWrapper) throws Exception {
         if(requestWrapper instanceof HttpRequestWrapper){
             processHttp((HttpRequestWrapper)requestWrapper);
         } else if(requestWrapper instanceof SocketRequestWrapper){

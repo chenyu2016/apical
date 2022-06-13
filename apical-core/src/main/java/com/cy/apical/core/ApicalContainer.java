@@ -3,7 +3,9 @@ package com.cy.apical.core;
 import com.cy.apical.common.constants.ApicalBufferHelper;
 import com.cy.apical.core.netty.client.NettyHttpClient;
 import com.cy.apical.core.netty.server.NettyServer;
+import com.cy.apical.core.processor.NettyDisruptorProcessor;
 import com.cy.apical.core.processor.NettyCoreProcessor;
+import com.cy.apical.core.processor.NettyMpscProcessor;
 import com.cy.apical.core.processor.NettyProcessor;
 import lombok.extern.slf4j.Slf4j;
 
@@ -39,10 +41,11 @@ public class ApicalContainer implements LifeCycle{
         NettyCoreProcessor nettyCoreProcessor = new NettyCoreProcessor();
         // 确定 缓冲区类型
         String buffType = this.apicalConfig.getBufferType();
+
         if(ApicalBufferHelper.isDisruptor(buffType)){
-            nettyProcessor = nettyCoreProcessor;
+            nettyProcessor = new NettyDisruptorProcessor(nettyCoreProcessor,apicalConfig);
         } else if(ApicalBufferHelper.isMpmc(buffType)){
-            nettyProcessor = nettyCoreProcessor;
+            nettyProcessor = new NettyMpscProcessor(nettyCoreProcessor);
         } else {
             nettyProcessor = nettyCoreProcessor;
         }

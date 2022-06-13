@@ -3,6 +3,7 @@ package com.cy.apical.core;
 import com.cy.apical.common.constants.ApicalBufferHelper;
 import com.cy.apical.common.constants.BasicConst;
 import com.cy.apical.common.util.NetUtils;
+import com.lmax.disruptor.*;
 import lombok.Data;
 
 /**
@@ -61,6 +62,20 @@ public class ApicalConfig {
 
     /** 网关队列 等待策略*/
     private String waitStrategy = "blocking";
+
+    public WaitStrategy getNewRealWaitStrategy(){
+        switch (waitStrategy){
+            case "blocking":
+                return new BlockingWaitStrategy();
+            case "busySpin":
+                return new BusySpinWaitStrategy();
+            case "yielding":
+                return new YieldingWaitStrategy();
+            case "sleeping":
+                return new SleepingWaitStrategy();
+        }
+        return new BlockingWaitStrategy();
+    }
 
     /** 连接超时时间 */
     private int httpConnectTimeout = 30 * 1000;
