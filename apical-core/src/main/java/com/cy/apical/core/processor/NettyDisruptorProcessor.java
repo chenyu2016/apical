@@ -4,7 +4,7 @@ import com.cy.apical.common.concurrent.queue.flusher.DisruptorParallelFlusher;
 import com.cy.apical.core.ApicalConfig;
 import com.cy.apical.core.context.RequestWrapper;
 import com.lmax.disruptor.dsl.ProducerType;
-import io.netty.channel.ChannelHandlerContext;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * @Author ChenYu
@@ -12,6 +12,7 @@ import io.netty.channel.ChannelHandlerContext;
  * @Describe
  * @Version 1.0
  */
+@Slf4j
 public class NettyDisruptorProcessor implements NettyProcessor{
 
     private NettyCoreProcessor nettyCoreProcessor;
@@ -37,6 +38,7 @@ public class NettyDisruptorProcessor implements NettyProcessor{
 
     @Override
     public void process(RequestWrapper requestWrapper) throws Exception {
+        System.out.println("NettyDisruptorProcessor add ok");
         parallelFlusher.add(requestWrapper);
     }
 

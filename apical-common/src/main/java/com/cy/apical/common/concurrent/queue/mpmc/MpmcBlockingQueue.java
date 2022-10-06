@@ -51,12 +51,22 @@ public class MpmcBlockingQueue<E> extends MpmcConcurrentQueue<E> implements Seri
     }
 
     @Override
+    public final boolean offer(E e) {
+        if (super.offer(e)) {
+            queueNotEmptyCondition.signal();
+            return true;
+        } else {
+            queueNotEmptyCondition.signal();
+            return false;
+        }
+    }
+
+    @Override
     public boolean offer(E e, long timeout, TimeUnit unit) throws InterruptedException {
         for (;;) {
             if (offer(e)) {
                 return true;
             } else {
-                // wait for available capacity and try again
                 if (!Condition.waitStatus(timeout, unit, queueNotFullCondition)) return false;
             }
         }
@@ -66,7 +76,7 @@ public class MpmcBlockingQueue<E> extends MpmcConcurrentQueue<E> implements Seri
     public E take() throws InterruptedException {
         for (;;) {
             E pollObj = poll();
-            if (pollObj != null) {
+            if (null != pollObj) {
                 return pollObj;
             }
             if(Thread.currentThread().isInterrupted()) {
@@ -74,6 +84,20 @@ public class MpmcBlockingQueue<E> extends MpmcConcurrentQueue<E> implements Seri
             }
             queueNotEmptyCondition.await();
         }
+    }
+
+    @Override
+    public final E poll() {
+        final E e = super.poll();
+        queueNotFullCondition.signal();
+        return e;
+    }
+
+    @Override
+    public int remove(final E[] e) {
+        final int n = super.remove(e);
+        queueNotFullCondition.signal();
+        return n;
     }
 
     @Override

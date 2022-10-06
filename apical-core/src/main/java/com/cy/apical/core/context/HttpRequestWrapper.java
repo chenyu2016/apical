@@ -20,4 +20,8 @@ public class HttpRequestWrapper extends RequestWrapper {
     public void errorCallBackWrite(Object o) {
 
     }
+
+    public void setFullHttpRequest(FullHttpRequest fullHttpRequest) {
+        this.fullHttpRequest = fullHttpRequest;
+    }
 }

@@ -45,7 +45,7 @@ public class ApicalContainer implements LifeCycle{
         if(ApicalBufferHelper.isDisruptor(buffType)){
             nettyProcessor = new NettyDisruptorProcessor(nettyCoreProcessor,apicalConfig);
         } else if(ApicalBufferHelper.isMpmc(buffType)){
-            nettyProcessor = new NettyMpscProcessor(nettyCoreProcessor);
+            nettyProcessor = new NettyMpscProcessor(nettyCoreProcessor,apicalConfig,true);
         } else {
             nettyProcessor = nettyCoreProcessor;
         }

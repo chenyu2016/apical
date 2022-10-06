@@ -10,6 +10,17 @@ import lombok.Setter;
  * @Version 1.0
  */
 public class SocketRequestWrapper extends RequestWrapper {
+
+    private Object msg;
+
+    public Object getMsg() {
+        return msg;
+    }
+
+    public void setMsg(Object msg) {
+        this.msg = msg;
+    }
+
     @Override
     public void errorCallBackWrite(Object o) {
 
